@@ -53,6 +53,11 @@ export default class SongCard extends React.Component {
         // ASK THE MODEL TO MOVE THE DATA
         this.props.moveCallback(sourceId, targetId);
     }
+    handleEditSong = (event) => {
+        if(event.detail===2){
+            this.props.editSongCallBack(this.getItemNum()-1);
+        }
+    }
 
     getItemNum = () => {
         return this.props.id.substring("playlist-song-".length);
@@ -77,6 +82,7 @@ export default class SongCard extends React.Component {
                 onDragEnter={this.handleDragEnter}
                 onDragLeave={this.handleDragLeave}
                 onDrop={this.handleDrop}
+                onDoubleClick={this.handleEditSong}
                 draggable="true"
             >
                 {num + ". "} <a a href={youTubeLink}>{song.title} by {song.artist}</a>
