@@ -8,10 +8,12 @@ import jsTPS from './common/jsTPS.js';
 // OUR TRANSACTIONS
 import MoveSong_Transaction from './transactions/MoveSong_Transaction.js';
 import EditSong_Transaction from './transactions/EditSong_Transaction';
+import RemoveSong_Transaction from './transactions/RemoveSong_Transaction';
 
 // THESE REACT COMPONENTS ARE MODALS
 import DeleteListModal from './components/DeleteListModal.js';
 import EditSongModal from './components/EditSongModal';
+import RemoveSongModal from './components/RemoveSongModal';
 
 // THESE REACT COMPONENTS ARE IN OUR UI
 import Banner from './components/Banner.js';
@@ -39,7 +41,8 @@ class App extends React.Component {
             listKeyPairMarkedForDeletion : null,
             currentList : null,
             sessionData : loadedSessionData,
-            songKeyPairMarkedForEdit: null
+            songKeyPairMarkedForEdit: null,
+            songKeyPairMarkedForDeletion: null
         }
     }
     sortKeyNamePairsByName = (keyNamePairs) => {
@@ -258,6 +261,45 @@ class App extends React.Component {
             this.db.mutationUpdateSessionData(this.state.sessionData);
         });
     };
+    deleteSong = (key, index) => {
+        this.setState(prevState => ({
+            songKeyPairMarkedForDeletion : null,
+            currentList: prevState.currentList,
+            sessionData: prevState.sessionData
+        }), () => {
+            let list = this.state.currentList;
+            // console.log("----66-----------------------------------");
+            list.songs.splice([index], 1);
+            // console.log("--------77--------------------------------");
+            console.log(list);
+            // console.log("--------8888--------------------------------");
+            this.setStateWithUpdatedList(this.state.currentList); 
+            this.db.mutationUpdateList(this.state.currentList);
+            this.db.mutationUpdateSessionData(this.state.sessionData);
+            // console.log(this.state.currentList);
+        });
+    }
+    addSongSpecificIndex = (index, song) => {
+        this.setState(prevState => ({
+            currentList: prevState.currentList,
+            sessionData: prevState.sessionData
+        }), () => {
+            let list = this.state.currentList;
+            list.songs.splice(index, 0, song);
+            this.setStateWithUpdatedList(list);
+            this.db.mutationUpdateSessionData(this.state.sessionData);
+        })
+    }
+    deleteMarkedSong = () => {
+        console.log("Gym Class: " + this.state.currentList.key);
+        console.log("Gym Class: " + this.state.songKeyPairMarkedForDeletion);
+        console.log(this.state.currentList.songs[this.state.songKeyPairMarkedForDeletion]);
+
+        // this.deleteSong(this.state.currentList.key, this.state.songKeyPairMarkedForDeletion);
+        let transaction = new RemoveSong_Transaction(this, this.state.currentList.key,  this.state.songKeyPairMarkedForDeletion, this.state.currentList.songs[this.state.songKeyPairMarkedForDeletion]);
+        this.tps.addTransaction(transaction);
+        this.hideDeleteSongModal();
+    }
     editMarkedSong = () => {
         console.log("Babel: " + this.state.songKeyPairMarkedForEdit);
         this.editSong(this.state.currentList.key, this.state.songKeyPairMarkedForEdit);
@@ -317,6 +359,16 @@ class App extends React.Component {
             this.showEditSongModal();
         });
     }
+    markSongForDeletion = (index) => {
+        this.setState(prevState => ({
+            currentList: prevState.currentList,
+            songKeyPairMarkedForDeletion : index,
+            sessionData: prevState.sessionData
+        }), () => {
+            // PROMPT THE USER
+            this.showDeleteSongModal();
+        });
+    }
     // THIS FUNCTION SHOWS THE MODAL FOR PROMPTING THE USER
     // TO SEE IF THEY REALLY WANT TO DELETE THE LIST
     showDeleteListModal() {
@@ -340,6 +392,18 @@ class App extends React.Component {
     // THIS FUNCTION IS FOR HIDING THE MODAL
     hideEditSongModal() {
         let modal = document.getElementById("edit-song-modal");
+        modal.classList.remove("is-visible");
+    }
+    showDeleteSongModal(){
+        let modal = document.getElementById("remove-song-modal");
+        let list = this.state.currentList;
+        let indexTemp = this.state.songKeyPairMarkedForDeletion;
+        document.getElementById("remove-song-span").innerHTML = list.songs[indexTemp].title + " ";
+        modal.classList.add("is-visible");
+    }
+    // THIS FUNCTION IS FOR HIDING THE MODAL
+    hideDeleteSongModal() {
+        let modal = document.getElementById("remove-song-modal");
         modal.classList.remove("is-visible");
     }
     render() {
@@ -373,6 +437,7 @@ class App extends React.Component {
                     currentList={this.state.currentList}
                     moveSongCallback={this.addMoveSongTransaction} 
                     editSongCallBack={this.markSongForEdit}
+                    deleteSongCallback={this.markSongForDeletion}
                 />
                 <Statusbar 
                     currentList={this.state.currentList} />
@@ -385,7 +450,11 @@ class App extends React.Component {
                     songKeyPair={this.state.songKeyPairMarkedForEdit}
                     hideEditSongModalCallback={this.hideEditSongModal}
                     editSongCallBack={this.addEditSongTransaction}
-                    
+                />
+                <RemoveSongModal
+                    songKeyPair={this.state.songKeyPairMarkedForDeletion}
+                    hideDeleteSongModalCallback={this.hideDeleteSongModal}
+                    deleteSongCallback={this.deleteMarkedSong}
                 />
             </div>
         );
