@@ -19,7 +19,7 @@ body {
 
 #root {
   background-color: var(--swatch-primary);
-  font-family: serif;
+  font-family: 'Tangerine', serif;
   position: absolute;
   width: 80%;
   left: 10%;
@@ -94,6 +94,11 @@ body {
   background-color: var(--swatch-accent);
 }
 
+.XButton{
+  float:right;
+  font-size:24pt;
+}
+
 #playlister-statusbar {
   grid-column: 1 / 3;
   grid-row: 4 / 5;
@@ -153,7 +158,7 @@ body {
   cursor: not-allowed;
 }
 
-.playlister-song, .playlister-song-dragged-to { 
+.playlister-song, .playlister-song-dragged-to{ 
   font-size: 32pt;
   margin: 10px;
   padding: 20px;
@@ -187,6 +192,7 @@ input {
   visibility: hidden;
   opacity: 0;
   transition: all 0.35s ease-in;
+  font-family: var(--font-primary);
 }
 
 .modal.is-visible {
