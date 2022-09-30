@@ -148,6 +148,10 @@ body {
   cursor: pointer;
 }
 
+.toolbar-button-disabled{
+  background-color: lightgray;
+}
+
 .playlister-button:hover {
   cursor: pointer;
   color:black;

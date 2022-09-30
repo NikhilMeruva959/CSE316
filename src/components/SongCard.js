@@ -71,7 +71,6 @@ export default class SongCard extends React.Component {
         const { song } = this.props;
         let num = this.getItemNum();
         console.log("num: " + num);
-        let youTubeLink = "https://www.youtube.com/watch?v=" + song.youTubeId;
 
         let itemClass = "playlister-song";
         if (this.state.draggedTo) {
@@ -89,7 +88,7 @@ export default class SongCard extends React.Component {
                 onDoubleClick={this.handleEditSong}
                 draggable="true"
             >
-                {num + ". "} <a a href={youTubeLink}>{song.title} by {song.artist}</a>
+                {num + ". "} <a href={"https://www.youtube.com/watch?v=" + song.youTubeId}>{song.title} by {song.artist}</a>
                 <input
                     type="button"
                     id={"remove-song-" + num}
