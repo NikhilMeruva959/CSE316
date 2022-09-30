@@ -2,7 +2,7 @@ import React from "react";
 
 export default class EditToolbar extends React.Component {
     render() {
-        const { canAddSong, canUndo, canRedo, canClose, 
+        const { canAddSong, canUndo, canRedo, canClose, addCallback,
                 undoCallback, redoCallback, closeCallback} = this.props;
         let addSongClass = "toolbar-button";
         let undoClass = "toolbar-button";
@@ -19,6 +19,7 @@ export default class EditToolbar extends React.Component {
                 id='add-song-button' 
                 value="+" 
                 className={addSongClass}
+                onClick={addCallback}
             />
             <input 
                 type="button" 
