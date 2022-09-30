@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class DeleteSongModal extends Component {
     render() {
         const { songKeyPair, deleteSongCallback, hideDeleteSongModalCallback } = this.props;
-        console.log("777 " + songKeyPair);
+        // console.log("777 " + songKeyPair);
         let name = "";
         if (songKeyPair) {
             name = songKeyPair.name;

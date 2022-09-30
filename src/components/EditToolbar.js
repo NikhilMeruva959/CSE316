@@ -10,7 +10,7 @@ export default class EditToolbar extends React.Component {
         let redoClass = "toolbar-button";
         let closeClass = "toolbar-button";
 
-        console.log("addSong button " + canAddSong);
+        // console.log("addSong button " + canAddSong);
 
         return (
             <div id="edit-toolbar">

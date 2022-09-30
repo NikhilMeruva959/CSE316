@@ -247,11 +247,11 @@ class App extends React.Component {
             // console.log("ZZZ: " + this.state.currentList.songs);
             // console.log("666");
             // console.log(this.state.currentList);
-            console.log("----------------------------------------");
-            console.log(this.state.currentList.songs[index].title);
-            console.log("----------------------------------------");
-            console.log(oldSongData);
-            console.log(newSongData);
+            // console.log("----------------------------------------");
+            // console.log(this.state.currentList.songs[index].title);
+            // console.log("----------------------------------------");
+            // console.log(oldSongData);
+            // console.log(newSongData);
             if(list.songs[index].title === oldSongData.title){
                 list.songs[index] = newSongData;
             }
@@ -306,9 +306,9 @@ class App extends React.Component {
         })
     }
     deleteMarkedSong = () => {
-        console.log("Gym Class: " + this.state.currentList.key);
-        console.log("Gym Class: " + this.state.songKeyPairMarkedForDeletion);
-        console.log(this.state.currentList.songs[this.state.songKeyPairMarkedForDeletion]);
+        // console.log("Gym Class: " + this.state.currentList.key);
+        // console.log("Gym Class: " + this.state.songKeyPairMarkedForDeletion);
+        // console.log(this.state.currentList.songs[this.state.songKeyPairMarkedForDeletion]);
 
         // this.deleteSong(this.state.currentList.key, this.state.songKeyPairMarkedForDeletion);
         let transaction = new RemoveSong_Transaction(this, this.state.currentList.key,  this.state.songKeyPairMarkedForDeletion, this.state.currentList.songs[this.state.songKeyPairMarkedForDeletion]);
@@ -316,7 +316,7 @@ class App extends React.Component {
         this.hideDeleteSongModal();
     }
     editMarkedSong = () => {
-        console.log("Babel: " + this.state.songKeyPairMarkedForEdit);
+        // console.log("Babel: " + this.state.songKeyPairMarkedForEdit);
         this.editSong(this.state.currentList.key, this.state.songKeyPairMarkedForEdit);
         this.hideEditSongModal();
     }
@@ -326,7 +326,7 @@ class App extends React.Component {
         this.tps.addTransaction(transaction);
     }
     addEditSongTransaction = (newSongInfo) => {
-        console.log("Babel: " + this.state.songKeyPairMarkedForEdit);
+        // console.log("Babel: " + this.state.songKeyPairMarkedForEdit);
         let indexEditTemp = this.state.songKeyPairMarkedForEdit;
         let oldSongInfo = this.state.currentList.songs[indexEditTemp];
 
@@ -343,7 +343,7 @@ class App extends React.Component {
         addedSong.youTubeId = "dQw4w9WgXcQ";
 
         let size = this.state.currentList.songs.length;
-        console.log("SSS:" + size);
+        // console.log("SSS:" + size);
         let transaction = new CreateSong_Transaction(this, size, addedSong);
         this.tps.addTransaction(transaction);
 

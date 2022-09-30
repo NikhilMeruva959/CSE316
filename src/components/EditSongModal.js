@@ -7,8 +7,8 @@ export default class EditSongModal extends Component {
         newSong.title = document.getElementById("edit-song-modal-title-textfield").value;
         newSong.artist = document.getElementById("edit-song-modal-artist-textfield").value;
         newSong.youTubeId = document.getElementById("edit-song-modal-youTubeId-textfield").value;
-        console.log("KOKOK");
-        console.log(newSong);
+        // console.log("KOKOK");
+        // console.log(newSong);
 
         let modal = document.getElementById("edit-song-modal");
         modal.classList.remove("is-visible");

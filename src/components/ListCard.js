@@ -44,7 +44,7 @@ export default class ListCard extends React.Component {
     handleBlur = () => {
         let key = this.props.keyNamePair.key;
         let textValue = this.state.text;
-        console.log("ListCard handleBlur: " + textValue);
+        // console.log("ListCard handleBlur: " + textValue);
         this.props.renameListCallback(key, textValue);
         this.handleToggleEdit();
     }
