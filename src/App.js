@@ -366,6 +366,14 @@ class App extends React.Component {
             this.db.mutationUpdateList(this.state.currentList);
         }
     }
+    keyPress = (event) => {
+        if(event.keyCode === 90 && event.ctrlKey){
+            this.undo();
+        } 
+        if(event.keyCode === 89 && event.ctrlKey){
+            this.redo();
+        }
+    }
     markListForDeletion = (keyPair) => {
         this.setState(prevState => ({
             currentList: prevState.currentList,
@@ -439,7 +447,7 @@ class App extends React.Component {
         let canRedo = this.tps.hasTransactionToRedo();
         let canClose = this.state.currentList !== null;
         return (
-            <div id="root">
+            <div id="root" onKeyDown={this.keyPress}>
                 <Banner />
                 <SidebarHeading
                     createNewListCallback={this.createNewList}
